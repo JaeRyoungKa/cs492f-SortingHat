@@ -29,7 +29,7 @@ class Learn extends Component {
     }
 
     setting = (value) => {
-    if (value >= "0" && value <= "33") {
+        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
         return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
         }> 기능</Label > 은 < Label color='red' onClick={() => this.report('진짜 숫자')
         }> 진짜 숫자</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
