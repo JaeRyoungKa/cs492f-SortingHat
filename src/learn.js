@@ -5,7 +5,7 @@ import ModalExampleModal from './ModalExampleModal'
 class Learn extends Component {
     constructor(props) {
         super(props);
-        this.state = { isVisible: false, word: "None", isModalVisible: false };
+        this.state = { doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
         this.report = this.report.bind(this);
     }
     report = (a) => {
@@ -18,6 +18,10 @@ class Learn extends Component {
     }
     stateisVisible = () => {
         return this.state.isVisible
+    }
+
+    statedoSuggest = () => {
+        return this.state.doSuggest
     }
 
     render() {
@@ -81,18 +85,34 @@ extra={"11 reputation points (Ranked 67.229%)"}
                         
                     <Button.Group>
     <Button positive>No, it's appropriate</Button>
-    <Button.Or />
-    <ModalExampleModal text="Yes, mark it as dubious" isContribute="0" /> 
+    <Button.Or /></Button.Group>
+                        <Button.Group onClick={() => this.setState({ doSuggest: true })}><ModalExampleModal text="Yes, mark it as dubious" isContribute="0" /> 
   </Button.Group>
   <p style={{margin: '1em'}}>
-  <Button.Group>
+                            <Button.Group onClick={() => this.setState({ doSuggest: true })}>
   <ModalExampleModal text="Not sure" isContribute="2" color="grey" /> 
   </Button.Group>
   </p>
                 </Segment>
                 
                 
-</div>
+                </div>
+
+                <div style={{ display: this.statedoSuggest() ? "block" : "None", marginTop: "1em" }}>
+
+                    <Segment color="violet" textAlign="center">
+                        <h3>Would you like to change the translating settings?</h3>
+
+                        <Button.Group>
+                            <Button positive onClick={() => this.setState({ doSuggest: false })}>No, it's fine</Button>
+                            <Button.Or/>
+                            <Button style={{ backgroundColor : "#8f1eb4", color: "#fff"}}>
+                            Yes, please</Button>
+                        </Button.Group>
+                    </Segment>
+
+
+                </div>
 
 
             </Container>
