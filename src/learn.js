@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Container, Grid, Header, Image, Segment, Label, Button, Card } from 'semantic-ui-react'
 import ModalExampleModal from './ModalExampleModal'
 
 class Learn extends Component {
     constructor(props) {
         super(props);
-        this.state = { doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
+        this.state = { value: "70", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
         this.report = this.report.bind(this);
     }
     report = (a) => {
@@ -24,7 +24,35 @@ class Learn extends Component {
         return this.state.doSuggest
     }
 
+    stateshowSetting = () => {
+        return this.state.showSetting
+    }
+
+    handleOnChange = (e) => this.setState({ value: e.target.value })
+
     render() {
+
+        function setting(value) {
+            if (value > "0" && value <= "33") {
+                return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+                }> 기능</Label > 은 < Label color='red' onClick={() => this.report('진짜 숫자')
+                }> 진짜 숫자</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
+                }> 제곱의 값</Label > 을 반환합니다. </p>)
+            }
+            else if (value > "33", value <= "67") {
+                return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+                }> 기능</Label > 은 < Label color='red' onClick={() => this.report('실수')
+                }> 실수</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
+                }> 제곱의 값</Label > 을 반환합니다.</p>)
+            }
+            else {
+                return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('함수')
+                }> 함수</Label > 은 < Label color='red' onClick={() => this.report('실수')
+                    }> 실수</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
+                    }> 제곱의 값</Label > 을 반환합니다.</p>)
+            }
+        }
+
         return (
             <Container style={{ marginTop: '2em' }}>
 
@@ -72,7 +100,7 @@ extra={"11 reputation points (Ranked 67.229%)"}
         </Label>
 
                         <p>
-                            강의를 재개합니다. 우리가 방금 다룬 <Label color='red' onClick={() => this.report('기능')}>기능</Label>은 <Label color='red' onClick={() => this.report('진짜 숫자')}>진짜 숫자</Label>를 입력받아 그 <Label color='teal' onClick={() => this.report('제곱의 값')}>제곱의 값</Label>을 반환합니다.
+                            {setting(this.state.value)}
        </p>
                     </Segment>
                 </Grid.Column>
@@ -106,9 +134,24 @@ extra={"11 reputation points (Ranked 67.229%)"}
                         <Button.Group>
                             <Button positive onClick={() => this.setState({ doSuggest: false })}>No, it's fine</Button>
                             <Button.Or/>
-                            <Button style={{ backgroundColor : "#8f1eb4", color: "#fff"}}>
-                            Yes, please</Button>
+                            <Button style={{ backgroundColor: "#8f1eb4", color: "#fff" }} onClick={() => this.setState({ showSetting: true })}> Yes, please</Button>
+                       
                         </Button.Group>
+                    </Segment>
+
+
+                </div>
+
+                <div style={{ display: this.stateshowSetting() ? "block" : "None", marginTop: "1em" }}>
+
+                    <Segment color="violet" textAlign="center">
+                        <h3>Try adjusting the parameter to change the setting</h3>
+                        <div>
+                            <input type="range" min="0" max="100" value={this.state.value} onChange={this.handleOnChange} />
+                            <div className="value">{this.state.value}</div>
+                        </div>
+                        
+                        
                     </Segment>
 
 
