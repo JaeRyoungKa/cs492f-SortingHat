@@ -216,6 +216,12 @@ class Contribute extends Component {
     <Button.Or />
     <ModalExampleModal text="Should be corrected" isContribute="1" /> 
   </Button.Group>
+
+<p style={{margin: '1em'}}>
+  <Button.Group>
+  <ModalExampleModal text="Not sure" isContribute="2" color="grey" /> 
+  </Button.Group>
+  </p>
                                 
                                        
                                 </p>

@@ -84,6 +84,11 @@ extra={"11 reputation points (Ranked 67.229%)"}
     <Button.Or />
     <ModalExampleModal text="Yes, mark it as dubious" isContribute="0" /> 
   </Button.Group>
+  <p style={{margin: '1em'}}>
+  <Button.Group>
+  <ModalExampleModal text="Not sure" isContribute="2" color="grey" /> 
+  </Button.Group>
+  </p>
                 </Segment>
                 
                 
