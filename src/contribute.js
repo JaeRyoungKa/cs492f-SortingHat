@@ -17,6 +17,12 @@ class Contribute extends Component {
         this.word3 = {
             appRate: 84, altList: { "풀이": 15, "풀이과정": 12, "노가다": 1 }, modelConfidence: 88.2, comments: "None"
         }
+        this.word4 = {
+            appRate: 87, altList: { "좌우변": 15, "좌변과 우변": 7}, modelConfidence: 90.6, comments: "None"
+        }
+        this.word5 = {
+            appRate: 90, altList: { "편미분": 5}, modelConfidence: 93.5, comments: "None"
+        }
     }
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
     report = (a) => {
@@ -30,8 +36,12 @@ class Contribute extends Component {
             this.ptr = 1;
         else if (a === "구별화")
             this.ptr = 2;
-        else
+        else if (a === "계산")
             this.ptr = 3;
+        else if (a === "양변")
+            this.ptr = 4;
+        else
+            this.ptr = 5;
 
     }
     stateisVisible = () => {
@@ -53,6 +63,10 @@ class Contribute extends Component {
             return this.word2
         if (this.ptr === 3)
             return this.word3
+        if (this.ptr === 4)
+            return this.word4
+        if (this.ptr === 5)
+            return this.word5
     }
 
 
