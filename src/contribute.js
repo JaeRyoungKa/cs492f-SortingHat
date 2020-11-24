@@ -5,7 +5,7 @@ import ModalExampleModal from './ModalExampleModal'
 class Contribute extends Component {
     constructor(props) {
         super(props);
-        this.state = { isVisible: false, word: "None", isModalVisible: false, activeItem: '1' };
+        this.state = { value: "25", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false, activeItem: '1' };
         this.report = this.report.bind(this);
         this.ptr = 1
         this.word1 = {
@@ -37,6 +37,15 @@ class Contribute extends Component {
     stateisVisible = () => {
         return this.state.isVisible
     }
+
+    statedoSuggest = () => {
+        return this.state.doSuggest
+    }
+
+    stateshowSetting = () => {
+        return this.state.showSetting
+    }
+
     wordInformation = () => {
         if (this.ptr === 1)
             return this.word1
@@ -46,6 +55,20 @@ class Contribute extends Component {
             return this.word3
     }
 
+
+    setting = (value) => {
+        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
+            return (<p> <Label color='red' onClick={() => this.report('양쪽')}>양쪽</Label>을 <Label color='red' onClick={() => this.report('구별화')}>구별화</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다. </p>)
+        }
+        else if (value > "33" && value <= "67") {
+            return (<p><Label color='teal' onClick={() => this.report('양변')}>양변</Label>을 <Label color='red' onClick={() => this.report('구별화')}>구별화</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다.</p>)
+        }
+        else {
+            return (<p><Label color='teal' onClick={() => this.report('양변')}>양변</Label>을 <Label color='teal' onClick={() => this.report('미분')}>미분</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다.</p>)
+        }
+    }
+
+    handleOnChange = (e) => this.setState({ value: e.target.value })
 
     render() {
         const activeItem = this.state.activeItem
@@ -124,8 +147,8 @@ class Contribute extends Component {
         </Label>
 
                                 <p>
-                                    <Label color='red' onClick={() => this.report('양쪽')}>양쪽</Label>을 <Label color='red' onClick={() => this.report('구별화')}>구별화</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다.
-                            </p>
+                                    {this.setting(this.state.value)}
+                                </p>
                             </Segment>
                         </Grid.Column>
 
@@ -212,13 +235,13 @@ class Contribute extends Component {
                                 <p>
 
                                 <Button.Group>
-    <Button positive>Appropriate</Button>
-    <Button.Or />
-    <ModalExampleModal text="Should be corrected" isContribute="1" /> 
+                                        <Button positive>Appropriate</Button>
+                                        <Button.Or /></Button.Group>
+                                        <Button.Group onClick={() => this.setState({ doSuggest: true })}><ModalExampleModal text="Should be corrected" isContribute="1" /> 
   </Button.Group>
 
 <p style={{margin: '1em'}}>
-  <Button.Group>
+                                            <Button.Group onClick={() => this.setState({ doSuggest: true })}>
   <ModalExampleModal text="Not sure" isContribute="2" color="grey" /> 
   </Button.Group>
   </p>
@@ -233,6 +256,36 @@ class Contribute extends Component {
                     </Segment>
                 </div>
 
+                    <div style={{ display: this.statedoSuggest() ? "block" : "None", marginTop: "1em" }}>
+
+                        <Segment color="violet" textAlign="center">
+                            <h3>Would you like to change the translating settings?</h3>
+
+                            <Button.Group>
+                                <Button positive onClick={() => this.setState({ doSuggest: false })}>No, it's fine</Button>
+                                <Button.Or />
+                                <Button style={{ backgroundColor: "#8f1eb4", color: "#fff" }} onClick={() => this.setState({ showSetting: true, isVisible: false })}> Yes, please</Button>
+
+                            </Button.Group>
+                        </Segment>
+
+
+                    </div>
+
+                    <div style={{ display: this.stateshowSetting() ? "block" : "None", marginTop: "1em" }}>
+
+                        <Segment color="violet" textAlign="center">
+                            <h3>Try adjusting the parameter to change the setting</h3>
+                            <div>
+                                <input type="range" min="0" max="100" value={this.state.value} onChange={this.handleOnChange} />
+                                <div className="value">{this.state.value}</div>
+                            </div>
+
+
+                        </Segment>
+
+
+                    </div>
 
 
 
