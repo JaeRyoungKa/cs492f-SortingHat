@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Grid, Header, Image, Segment, Label, Button, Card } from 'semantic-ui-react'
 import ModalExampleModal from './ModalExampleModal'
 import PostForm from './PostForm';
+import PostList from './PostList';
 
 class Learn extends Component {
     constructor(props) {
@@ -159,7 +160,9 @@ extra={"11 reputation points (Ranked 67.229%)"}
 
 
                 </div>
-
+                <div>
+                    <PostList/>
+                </div>
 
             </Container>
 
