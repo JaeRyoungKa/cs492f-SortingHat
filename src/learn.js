@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Grid, Header, Image, Segment, Label, Button, Card } from 'semantic-ui-react'
 import ModalExampleModal from './ModalExampleModal'
+import PostForm from './PostForm';
 
 class Learn extends Component {
     constructor(props) {
@@ -150,6 +151,7 @@ extra={"11 reputation points (Ranked 67.229%)"}
                         <div>
                             <input type="range" min="0" max="100" value={this.state.value} onChange={this.handleOnChange} />
                             <div className="value">{this.state.value}</div>
+                            <PostForm/>
                         </div>
                         
                         
