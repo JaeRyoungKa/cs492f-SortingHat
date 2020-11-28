@@ -13,6 +13,7 @@ import {
 import About from "./about"
 import Learn from "./learn"
 import Contribute from "./contribute"
+import PostForm from "./PostForm"
 
 ReactDOM.render(
   <div>
@@ -24,7 +25,7 @@ ReactDOM.render(
         </Menu.Item>
         <Menu.Item as='a' href="/learn">Learn</Menu.Item>
         <Menu.Item as='a' href="/contribute">Contribute</Menu.Item>
-        <Menu.Item as='a'>?</Menu.Item>
+        <Menu.Item as='a' href="/postForm">PostForm (debug)</Menu.Item>
         <Menu.Item position="right" disabled as='a'>Log in</Menu.Item>
       </Container>
     </Menu>
@@ -43,6 +44,9 @@ ReactDOM.render(
             </Route>
             <Route path="/contribute">
               <Contribute />
+            </Route>
+            <Route path="/postForm">
+              <PostForm />
             </Route>
             <Route exact path="/">
               <Redirect to="/about" />

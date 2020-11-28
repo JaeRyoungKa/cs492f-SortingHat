@@ -8,7 +8,7 @@ class PostForm extends Component {
             domain: '',
             word: '',
             degree: '',
-            userInfo: [{ 'Expertise': '', 'Age': '', 'Level': '' }],
+            userInfo: { 'Expertise': '', 'Age': '', 'Level': '' },
             alt: '',
         }
     }
@@ -18,7 +18,7 @@ class PostForm extends Component {
     submitHandler = e => {
         e.preventDefault()
         console.log(this.state)
-        axios.post('', this.state)
+        axios.post('http://143.248.247.64:52000/judgeWord', this.state, {headers: {}})
             .then(response => {
                 console.log(response)
             })
