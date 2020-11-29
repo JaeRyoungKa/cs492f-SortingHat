@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const https = require('https');
 
 class PostForm extends Component {
     constructor(props) {
@@ -13,12 +15,16 @@ class PostForm extends Component {
         }
     }
     changeHandler = e => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
+
     submitHandler = e => {
         e.preventDefault()
         console.log(this.state)
-        axios.post('https://143.248.247.64:52000/judgeWord', this.state, {headers: {}})
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+        axios.post('https://143.248.247.64:52001/judgeWord', this.state, { httpsAgent: agent, headers: {'crossDomain': true} })
             .then(response => {
                 console.log(response)
             })
@@ -27,18 +33,18 @@ class PostForm extends Component {
             })
     }
     render() {
-        const {domain, word, degree, userInfo, alt} = this.state
+        const { domain, word, degree, userInfo, alt } = this.state
         return (
             <div>
                 <form onSubmit={this.submitHandler}>
                     <div>
-                        <input type="text" name="domain" value={domain} onChange={this.changeHandler}/>
+                        <input type="text" name="domain" value={domain} onChange={this.changeHandler} />
                     </div>
                     <div>
-                        <input type="text" name="word" value={word} onChange={this.changeHandler}/>
+                        <input type="text" name="word" value={word} onChange={this.changeHandler} />
                     </div>
                     <div>
-                        <input type="text" name="degree" value={degree} onChange={this.changeHandler}/>
+                        <input type="text" name="degree" value={degree} onChange={this.changeHandler} />
                     </div>
                     <div>
                         <input type="text" name="userInfo" value={userInfo} onChange={this.changeHandler} />

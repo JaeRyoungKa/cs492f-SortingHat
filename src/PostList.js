@@ -11,7 +11,7 @@ class PostList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://143.248.247.64:52000/judgeWord')
+        axios.get('https://143.248.247.64:52001/judgeWord')
             .then(response => {
                 console.log(response)
                 this.setState({posts:response.data})
