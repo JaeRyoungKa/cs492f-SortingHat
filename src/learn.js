@@ -43,16 +43,16 @@ class Learn extends Component {
             }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
         else if (value === 2) {
-            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('행사')
-            }> 행사</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('동작')
+            }> 동작</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
         else if (value === 3) {
             return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('NULL')
             }> NULL</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
         else { // default
-            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
-            }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('동작')
+            }> 동작</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
     }
 
