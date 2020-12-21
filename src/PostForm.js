@@ -24,7 +24,7 @@ class PostForm extends Component {
         const agent = new https.Agent({
             rejectUnauthorized: false
         });
-        axios.post('http://143.248.247.64:52005/judgeWord', this.state, { httpsAgent: agent, headers: {'crossDomain': true} })
+        axios.post('http://143.248.247.64:52005/predict', this.state, { httpsAgent: agent, headers: {'crossDomain': true} })
             .then(response => {
                 console.log(response)
             })

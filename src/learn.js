@@ -3,11 +3,15 @@ import { Container, Grid, Header, Image, Segment, Label, Button, Card } from 'se
 import ModalExampleModal from './ModalExampleModal'
 import PostForm from './PostForm';
 import PostList from './PostList';
+import axios from 'axios'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const https = require('https');
 
 class Learn extends Component {
     constructor(props) {
         super(props);
-        this.state = { value1: "25", value2: "50", value3: "20", value4: "50", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
+        this.state = { domain: "1", LearnerAge: "20", LearnerLevel: "1", ContributorLevel: "1", value1: "25", value2: "50", value3: "20", value4: "50", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
+        this.state2 = {Domain: "1", LearnerAge: "30", LearnerLevel: "1", ContributorLevel: "1"};
         this.report = this.report.bind(this);
     }
     report = (a) => {
@@ -32,24 +36,18 @@ class Learn extends Component {
 
     setting = (value) => {
         if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
-        return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
-        }> 기능</Label > 은 < Label color='red' onClick={() => this.report('진짜 숫자')
-        }> 진짜 숫자</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
-        }> 제곱의 값</Label > 을 반환합니다. </p>)
+            return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+            }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다. </p>)
+        }
+        else if (value > "33" && value <= "67") {
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+            }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+        }
+        else {
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='teal' onClick={() => this.report('함수')
+            }> 함수</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+        }
     }
-    else if (value > "33" && value <= "67") {
-        return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
-        }> 기능</Label > 은 < Label color='teal' onClick={() => this.report('실수')
-        }> 실수</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
-        }> 제곱의 값</Label > 을 반환합니다.</p>)
-    }
-    else {
-        return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='teal' onClick={() => this.report('함수')
-        }> 함수</Label > 은 < Label color='teal' onClick={() => this.report('실수')
-        }> 실수</Label > 를 입력받아 그 < Label color='teal' onClick={() => this.report('제곱의 값')
-        }> 제곱의 값</Label > 을 반환합니다.</p>)
-    }
-}
 
     setting1 = (value) => {
         if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
@@ -123,6 +121,25 @@ class Learn extends Component {
         }
     }
 
+    submitHandler = e => {
+        e.preventDefault()
+        console.log(this.state2)
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+
+        axios.post('http://143.248.247.64:52005/predict', this.state2, { httpsAgent: agent, headers: {'crossDomain': true} })
+        .then(response =>  {
+            console.log(response)
+          })
+        .catch(error => {
+            console.log(error.response)
+          });
+
+      
+        
+    }
+
 
     handleOnChange1 = (e) => this.setState({ value1: e.target.value })
     handleOnChange2 = (e) => this.setState({ value2: e.target.value })
@@ -141,20 +158,20 @@ class Learn extends Component {
                     Account Information
       </Header>
 
-      <Card.Group>
+                <Card.Group>
 
-<Card size="mini"
-image='/teemo.jpg'
-header='Teemo'
-meta='A high school student'
-description='Hello, I am from Teemo Science High School. Nice to meet you.'
-extra={"11 reputation points (Ranked 67.229%)"}
-/>
+                    <Card size="mini"
+                        image='/teemo.jpg'
+                        header='Teemo'
+                        meta='A high school student'
+                        description='Hello, I am from Teemo Science High School. Nice to meet you.'
+                        extra={"11 reputation points (Ranked 67.229%)"}
+                    />
 
 
-</Card.Group>
+                </Card.Group>
 
-               
+
                 <Header as='h2' dividing>
                     Mathematics 101
       </Header>
@@ -171,7 +188,7 @@ extra={"11 reputation points (Ranked 67.229%)"}
                             English (Original)
         </Label>
                         <p>
-                            Let's resume the lecture. The <Label color='red'>function</Label> f(x) we took a look at takes a <Label color='red'>real number</Label> and returns its <Label color='teal'>sqaured value</Label>.
+                            Let's resume the lecture. The <Label color='red'>function</Label> f(x) we took a look at takes a real number and returns its sqaured value.
                     </p>
 
                         <Label as='a' color='blue' ribbon style={{ marginBottom: "1em" }}>
@@ -180,29 +197,29 @@ extra={"11 reputation points (Ranked 67.229%)"}
 
                         <p>
                             {this.setting(this.state.value)}
-       </p>
+                        </p>
                     </Segment>
                 </Grid.Column>
 
 
-<div style={{ display: this.stateisVisible() ? "block" : "None", marginTop: "1em"}}>
-    
-                <Segment color="violet" textAlign="center">
-                    <h3>Did you find the translation of <span class="ui black label">{this.state.word}</span> inappropriate?</h3>
-                        
-                    <Button.Group>
-    <Button positive>No, it's appropriate</Button>
-    <Button.Or /></Button.Group>
-                        <Button.Group onClick={() => this.setState({ doSuggest: true })}><ModalExampleModal text="Yes, mark it as dubious" isContribute="0" /> 
-  </Button.Group>
-  <p style={{margin: '1em'}}>
+                <div style={{ display: this.stateisVisible() ? "block" : "None", marginTop: "1em" }}>
+
+                    <Segment color="violet" textAlign="center">
+                        <h3>Did you find the translation of <span class="ui black label">{this.state.word}</span> inappropriate?</h3>
+
+                        <Button.Group>
+                            <Button positive>No, it's appropriate</Button>
+                            <Button.Or /></Button.Group>
+                        <Button.Group onClick={() => this.setState({ doSuggest: true })}><ModalExampleModal text="Yes, mark it as dubious" isContribute="0" />
+                        </Button.Group>
+                        <p style={{ margin: '1em' }}>
                             <Button.Group onClick={() => this.setState({ doSuggest: true })}>
-  <ModalExampleModal text="Not sure" isContribute="2" color="grey" /> 
-  </Button.Group>
-  </p>
-                </Segment>
-                
-                
+                                <ModalExampleModal text="Not sure" isContribute="2" color="grey" />
+                            </Button.Group>
+                        </p>
+                    </Segment>
+
+
                 </div>
 
                 <div style={{ display: this.statedoSuggest() ? "block" : "None", marginTop: "1em" }}>
@@ -212,9 +229,9 @@ extra={"11 reputation points (Ranked 67.229%)"}
 
                         <Button.Group>
                             <Button positive onClick={() => this.setState({ doSuggest: false })}>No, it's fine</Button>
-                            <Button.Or/>
+                            <Button.Or />
                             <Button style={{ backgroundColor: "#8f1eb4", color: "#fff" }} onClick={() => this.setState({ showSetting: true })}> Yes, please</Button>
-                       
+
                         </Button.Group>
                     </Segment>
 
@@ -247,16 +264,17 @@ extra={"11 reputation points (Ranked 67.229%)"}
                                 <input type="range" min="0" max="100" value={this.state.value4} onChange={this.handleOnChange4} />
                                 <div className="value">{this.setting4(this.state.value4)}</div>
                             </div>
-                            <PostForm/>
+                            <Button style={{ backgroundColor: "#8f1eb4", color: "#fff", marginTop: "0.3em" }} onClick={this.submitHandler}> Check Translation </Button>
+                            <Button style={{ backgroundColor: "#000000", color: "#fff" }} onClick={this.submitHandler}> Submit This! </Button>
                         </div>
-                        
-                        
+
+
                     </Segment>
 
 
                 </div>
                 <div>
-                    <PostList/>
+                    <PostList />
                 </div>
 
             </Container>
