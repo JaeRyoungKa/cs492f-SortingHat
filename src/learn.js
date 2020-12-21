@@ -10,8 +10,7 @@ const https = require('https');
 class Learn extends Component {
     constructor(props) {
         super(props);
-        this.state = { domain: "1", LearnerAge: "20", LearnerLevel: "1", ContributorLevel: "1", value1: "25", value2: "50", value3: "20", value4: "50", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
-        this.state2 = {Domain: "1", LearnerAge: "30", LearnerLevel: "1", ContributorLevel: "1"};
+        this.state = { value1: "15", value2: "18", value3: "29", value4: "27", value: -1, showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false };
         this.report = this.report.bind(this);
     }
     report = (a) => {
@@ -35,51 +34,59 @@ class Learn extends Component {
     }
 
     setting = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
-            return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
-            }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다. </p>)
+        if (value === 0) {
+            return (<p> 강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('함수')
+            }> 함수</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다. </p>)
         }
-        else if (value > "33" && value <= "67") {
-            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+        else if (value === 1) {
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('기능')
             }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
-        else {
-            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='teal' onClick={() => this.report('함수')
-            }> 함수</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+        else if (value === 2) {
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('행사')
+            }> 행사</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+        }
+        else if (value === 3) {
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='purple' onClick={() => this.report('NULL')
+            }> NULL</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
+        }
+        else { // default
+            return (<p>강의를 재개합니다.우리가 방금 다룬 < Label color='red' onClick={() => this.report('기능')
+            }> 기능</Label > f(x) 는 실수를 입력받아 그 제곱의 값을 반환합니다.</p>)
         }
     }
 
     setting1 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
-            return (<p>General</p>)
-        }
-        else if (value > parseInt("33", 10) && value <= parseInt("67", 10)) {
+        if (value >= parseInt("10", 10) && value <= parseInt("19", 10)) {
             return (<p>Mathematics</p>)
         }
+        else if (value > parseInt("20", 10) && value <= parseInt("29", 10)) {
+            return (<p>Social Science</p>)
+        }
         else {
-            return (<p>Sociology</p>)
+            return (<p>General</p>)
         }
     }
     setting2 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("12", 10)) {
+        if (value >= parseInt("0", 10) && value <= parseInt("7", 10)) {
             return (<p>Kindergarten</p>)
         }
-        else if (value > parseInt("12", 10) && value <= parseInt("25", 10)) {
+        else if (value > parseInt("7", 10) && value <= parseInt("13", 10)) {
             return (<p>Elementary School</p>)
         }
-        else if (value > parseInt("25", 10) && value <= parseInt("37", 10)) {
+        else if (value > parseInt("13", 10) && value <= parseInt("16", 10)) {
             return (<p>Middle School</p>)
         }
-        else if (value > parseInt("37", 10) && value <= parseInt("50", 10)) {
+        else if (value > parseInt("17", 10) && value <= parseInt("19", 10)) {
             return (<p>High School</p>)
         }
-        else if (value > parseInt("50", 10) && value <= parseInt("62", 10)) {
+        else if (value > parseInt("20", 10) && value <= parseInt("27", 10)) {
             return (<p>Bachelor</p>)
         }
-        else if (value > parseInt("62", 10) && value <= parseInt("75", 10)) {
+        else if (value > parseInt("27", 10) && value <= parseInt("30", 10)) {
             return (<p>Master</p>)
         }
-        else if (value > parseInt("75", 10) && value <= parseInt("87", 10)) {
+        else if (value > parseInt("30", 10) && value <= parseInt("43", 10)) {
             return (<p>Ph.D</p>)
         }
         else {
@@ -87,33 +94,33 @@ class Learn extends Component {
         }
     }
     setting3 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("20", 10)) {
+        if (value >= parseInt("0", 10) && value <= parseInt("8", 10)) {
             return (<p>Bachelor</p>)
         }
-        else if (value > parseInt("20", 10) && value <= parseInt("40", 10)) {
+        else if (value > parseInt("9", 10) && value <= parseInt("15", 10)) {
             return (<p>Master</p>)
         }
-        else if (value > parseInt("40", 10) && value <= parseInt("60", 10)) {
+        else if (value > parseInt("16", 10) && value <= parseInt("24", 10)) {
             return (<p>Ph.D</p>)
         }
-        else if (value > parseInt("60", 10) && value <= parseInt("80", 10)) {
+        else if (value > parseInt("25", 10) && value <= parseInt("34", 10)) {
             return (<p>PostDoc</p>)
         }
         else {
-            return (<p>Expert</p>)
+            return (<p>Domain Experts</p>)
         }
     }
     setting4 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("20", 10)) {
+        if (value >= parseInt("10", 10) && value <= parseInt("15", 10)) {
             return (<p>Kindergarten</p>)
         }
-        else if (value > parseInt("20", 10) && value <= parseInt("40", 10)) {
+        else if (value > parseInt("16", 10) && value <= parseInt("20", 10)) {
             return (<p>Elementary School</p>)
         }
-        else if (value > parseInt("40", 10) && value <= parseInt("60", 10)) {
+        else if (value > parseInt("21", 10) && value <= parseInt("24", 10)) {
             return (<p>Middle School</p>)
         }
-        else if (value > parseInt("60", 10) && value <= parseInt("80", 10)) {
+        else if (value > parseInt("25", 10) && value <= parseInt("30", 10)) {
             return (<p>High School</p>)
         }
         else {
@@ -123,21 +130,34 @@ class Learn extends Component {
 
     submitHandler = e => {
         e.preventDefault()
-        console.log(this.state2)
+        console.log(this.state)
         const agent = new https.Agent({
             rejectUnauthorized: false
         });
 
-        axios.post('http://143.248.247.64:52005/predict', this.state2, { httpsAgent: agent, headers: {'crossDomain': true} })
-        .then(response =>  {
-            console.log(response)
+        var bodyFormData = new FormData();
+        bodyFormData.append('domain', Math.floor(this.state.value1 / 10));
+        bodyFormData.append('LearnerAge', Math.floor(this.state.value2 / 1));
+        bodyFormData.append('LearnerLevel', Math.floor(this.state.value3 / 10));
+        bodyFormData.append('ContributorLevel', Math.floor(this.state.value4 / 10));
+
+        axios({
+            method: 'post',
+            url: 'http://143.248.247.64:52005/predict',
+            headers: {'Content-Type': 'multipart/form-data', 'crossDomain': true},
+            httpsAgent: agent,
+            data: bodyFormData
+          }).then(response =>  {
+            console.log(response.data)
+            const maxValue = Math.max(...response.data)
+            const maxIndex = response.data.indexOf(maxValue)
+            this.setState({value: maxIndex})
           })
         .catch(error => {
-            console.log(error.response)
+            console.log(error)
           });
 
       
-        
     }
 
 
@@ -245,36 +265,33 @@ class Learn extends Component {
                         <div>
                             <div>
                                 <p><b> Domain of the Excerpt </b></p>
-                                <input type="range" min="0" max="100" value={this.state.value1} onChange={this.handleOnChange1} />
+                                <input type="range" min="10" max="39" value={this.state.value1} onChange={this.handleOnChange1} />
                                 <div className="value">{this.setting1(this.state.value1)}</div>
                             </div>
                             <div style={{ marginTop: "30px" }}>
                                 <p><b> Peer Suggestion </b></p>
-                                <input type="range" min="0" max="100" value={this.state.value2} onChange={this.handleOnChange2} />
+                                <input type="range" min="0" max="50" value={this.state.value2} onChange={this.handleOnChange2} />
                                 <div className="value">{this.setting2(this.state.value2)}</div>
                             </div>
                             <div style={{ marginTop: "30px" }}>
                                 <p><b> Experts' Suggestion </b></p>
-                                <input type="range" min="0" max="100" value={this.state.value3} onChange={this.handleOnChange3} />
+                                <input type="range" min="0" max="39" value={this.state.value3} onChange={this.handleOnChange3} />
                                 <div className="value">{this.setting3(this.state.value3)}</div>
                             </div>
                             <div style={{ marginTop: "30px" }}>
                                 <p><b> Your Educational Background </b></p>
                                 <p><i> Disclaimer: This is to provide personal suggestion tailored to your educational background, and moving this slider does not collect your personal information</i></p>
-                                <input type="range" min="0" max="100" value={this.state.value4} onChange={this.handleOnChange4} />
+                                <input type="range" min="10" max="39" value={this.state.value4} onChange={this.handleOnChange4} />
                                 <div className="value">{this.setting4(this.state.value4)}</div>
                             </div>
-                            <Button style={{ backgroundColor: "#8f1eb4", color: "#fff", marginTop: "0.3em" }} onClick={this.submitHandler}> Check Translation </Button>
-                            <Button style={{ backgroundColor: "#000000", color: "#fff" }} onClick={this.submitHandler}> Submit This! </Button>
+                            <Button style={{ backgroundColor: "#8f1eb4", color: "#fff", marginTop: "0.3em" }} onClick={this.submitHandler}> Check Translation Result </Button>
+                            <ModalExampleModal text="Submit This!" isContribute="2" color="black" />
                         </div>
 
 
                     </Segment>
 
 
-                </div>
-                <div>
-                    <PostList />
                 </div>
 
             </Container>
