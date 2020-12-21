@@ -14,10 +14,10 @@ class Contribute extends Component {
             appRate: 20.8, altList: { "객체": 16, "목표": 3}, modelConfidence: 16, comments: "In computer science, the word 'object' should be translated into another word than social science."
         },
         word2: {
-            appRate: 60.4, altList: { "목표": 4}, modelConfidence: 57, comments: "None"
+            appRate: 60.4, altList: { "목표": 4, "물체": 1}, modelConfidence: 57, comments: "None"
         },
         word3: {
-            appRate: 49.4, altList: { "객체": 12}, modelConfidence: 24, comments: "None"
+            appRate: 49.4, altList: { "객체": 12, "목적": 2, "물체": 2}, modelConfidence: 24, comments: "None"
         },
         word4: {
             appRate: 2, altList: { "객체": 1 }, modelConfidence: 0, comments: "None"
