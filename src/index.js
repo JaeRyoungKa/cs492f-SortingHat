@@ -25,7 +25,6 @@ ReactDOM.render(
         </Menu.Item>
         <Menu.Item as='a' href="/learn">Learn</Menu.Item>
         <Menu.Item as='a' href="/contribute">Contribute</Menu.Item>
-        <Menu.Item as='a' href="/postForm">PostForm (debug)</Menu.Item>
         <Menu.Item position="right" disabled as='a'>Log in</Menu.Item>
       </Container>
     </Menu>

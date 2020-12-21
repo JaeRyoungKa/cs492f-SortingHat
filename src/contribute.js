@@ -1,28 +1,30 @@
 import React, { Component } from "react";
 import { Container, Grid, Header, Image, Segment, Label, Button, Menu, Card, Progress} from 'semantic-ui-react'
 import ModalExampleModal from './ModalExampleModal'
+import axios from 'axios'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const https = require('https');
 
 class Contribute extends Component {
     constructor(props) {
         super(props);
-        this.state = { value1: "25", value2: "50", value3: "20", value4: "50", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false, activeItem: '1' };
+        this.state = { value1: "25", value2: "28", value3: "30", value4: "32", showSetting: false, doSuggest: false, isVisible: false, word: "None", isModalVisible: false, activeItem: '1',
+        // initial values (before communicating with server)
+        word1: {
+            appRate: 20.8, altList: { "객체": 16, "목표": 3}, modelConfidence: 16, comments: "In computer science, the word 'object' should be translated into another word than social science."
+        },
+        word2: {
+            appRate: 60.4, altList: { "목표": 4}, modelConfidence: 57, comments: "None"
+        },
+        word3: {
+            appRate: 49.4, altList: { "객체": 12}, modelConfidence: 24, comments: "None"
+        },
+        word4: {
+            appRate: 2, altList: { "객체": 1 }, modelConfidence: 0, comments: "None"
+        }};
         this.report = this.report.bind(this);
-        this.ptr = 1
-        this.word1 = {
-            appRate: 11, altList: { "양변": 276, "좌우변": 69, "좌변과 우변": 12 }, modelConfidence: 40.2, comments: "None"
-        }
-        this.word2 = {
-            appRate: 14, altList: { "미분": 400, "편미분": 5 }, modelConfidence: 37.1, comments: "None"
-        }
-        this.word3 = {
-            appRate: 84, altList: { "풀이": 15, "풀이과정": 12, "노가다": 1 }, modelConfidence: 88.2, comments: "None"
-        }
-        this.word4 = {
-            appRate: 87, altList: { "좌우변": 15, "좌변과 우변": 7}, modelConfidence: 90.6, comments: "None"
-        }
-        this.word5 = {
-            appRate: 90, altList: { "편미분": 5}, modelConfidence: 93.5, comments: "None"
-        }
+        this.ptr = 4
+        
     }
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
     report = (a) => {
@@ -32,16 +34,14 @@ class Contribute extends Component {
         this.setState(() => ({
             word: a
         }));
-        if (a === "양쪽")
+        if (a === "물체")
             this.ptr = 1;
-        else if (a === "구별화")
+        else if (a === "객체")
             this.ptr = 2;
-        else if (a === "계산")
+        else if (a === "목표")
             this.ptr = 3;
-        else if (a === "양변")
-            this.ptr = 4;
         else
-            this.ptr = 5;
+            this.ptr = 4;
 
     }
     stateisVisible = () => {
@@ -58,61 +58,70 @@ class Contribute extends Component {
 
     wordInformation = () => {
         if (this.ptr === 1)
-            return this.word1
+            return this.state.word1
         if (this.ptr === 2)
-            return this.word2
+            return this.state.word2
         if (this.ptr === 3)
-            return this.word3
+            return this.state.word3
         if (this.ptr === 4)
-            return this.word4
-        if (this.ptr === 5)
-            return this.word5
+            return this.state.word4
     }
 
 
     setting = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
-            return (<p> <Label color='red' onClick={() => this.report('양쪽')}>양쪽</Label>을 <Label color='red' onClick={() => this.report('구별화')}>구별화</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다. </p>)
+        if (value === 0) {
+            return (<p>그 뒤 하이퍼파라미터가 < Label color='purple' onClick={() => this.report('물체')
+        }> 물체</Label > 에 들어가면 예측 결과값인 Y를 얻을 수 있습니다.</p>)
         }
-        else if (value > "33" && value <= "67") {
-            return (<p><Label color='teal' onClick={() => this.report('양변')}>양변</Label>을 <Label color='red' onClick={() => this.report('구별화')}>구별화</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다.</p>)
+        else if (value === 1) {
+            return (<p>그 뒤 하이퍼파라미터가 < Label color='purple' onClick={() => this.report('객체')
+        }> 객체</Label > 에 들어가면 예측 결과값인 Y를 얻을 수 있습니다.</p>)
         }
-        else {
-            return (<p><Label color='teal' onClick={() => this.report('양변')}>양변</Label>을 <Label color='teal' onClick={() => this.report('미분')}>미분</Label>하면 당신은 정답을 얻을 것입니다. 자세한 <Label color='teal' onClick={() => this.report('계산')}>계산</Label>은 숙제로 남겨두겠습니다.</p>)
+        else if (value === 2) {
+            return (<p>그 뒤 하이퍼파라미터가 < Label color='purple' onClick={() => this.report('목표')
+        }> 목표</Label > 에 들어가면 예측 결과값인 Y를 얻을 수 있습니다.</p>)
+        }
+        else if (value === 3) {
+            return (<p>그 뒤 하이퍼파라미터가 < Label color='purple' onClick={() => this.report('NULL')
+        }> NULL</Label > 에 들어가면 예측 결과값인 Y를 얻을 수 있습니다.</p>)
+        }
+        else { // default
+            return (<p>그 뒤 하이퍼파라미터가 < Label color='red' onClick={() => this.report('목표')
+        }> 목표</Label > 에 들어가면 예측 결과값인 Y를 얻을 수 있습니다.</p>)
         }
     }
 
     setting1 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("33", 10)) {
-            return (<p>General</p>)
+        if (value >= parseInt("10", 10) && value <= parseInt("19", 10)) {
+            return (<p>Physics</p>)
         }
-        else if (value > parseInt("33", 10) && value <= parseInt("67", 10)) {
-            return (<p>Mathematics</p>)
+        else if (value > parseInt("20", 10) && value <= parseInt("29", 10)) {
+            return (<p>Computer Science</p>)
         }
         else {
-            return (<p>Sociology</p>)
+            return (<p>Social Science</p>)
         }
     }
     setting2 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("12", 10)) {
+        if (value >= parseInt("0", 10) && value <= parseInt("7", 10)) {
             return (<p>Kindergarten</p>)
         }
-        else if (value > parseInt("12", 10) && value <= parseInt("25", 10)) {
+        else if (value > parseInt("7", 10) && value <= parseInt("13", 10)) {
             return (<p>Elementary School</p>)
         }
-        else if (value > parseInt("25", 10) && value <= parseInt("37", 10)) {
+        else if (value > parseInt("13", 10) && value <= parseInt("16", 10)) {
             return (<p>Middle School</p>)
         }
-        else if (value > parseInt("37", 10) && value <= parseInt("50", 10)) {
+        else if (value > parseInt("17", 10) && value <= parseInt("19", 10)) {
             return (<p>High School</p>)
         }
-        else if (value > parseInt("50", 10) && value <= parseInt("62", 10)) {
+        else if (value > parseInt("20", 10) && value <= parseInt("27", 10)) {
             return (<p>Bachelor</p>)
         }
-        else if (value > parseInt("62", 10) && value <= parseInt("75", 10)) {
+        else if (value > parseInt("27", 10) && value <= parseInt("30", 10)) {
             return (<p>Master</p>)
         }
-        else if (value > parseInt("75", 10) && value <= parseInt("87", 10)) {
+        else if (value > parseInt("30", 10) && value <= parseInt("43", 10)) {
             return (<p>Ph.D</p>)
         }
         else {
@@ -120,33 +129,33 @@ class Contribute extends Component {
         }
     }
     setting3 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("20", 10)) {
+        if (value >= parseInt("0", 10) && value <= parseInt("8", 10)) {
             return (<p>Bachelor</p>)
         }
-        else if (value > parseInt("20", 10) && value <= parseInt("40", 10)) {
+        else if (value > parseInt("9", 10) && value <= parseInt("15", 10)) {
             return (<p>Master</p>)
         }
-        else if (value > parseInt("40", 10) && value <= parseInt("60", 10)) {
+        else if (value > parseInt("16", 10) && value <= parseInt("24", 10)) {
             return (<p>Ph.D</p>)
         }
-        else if (value > parseInt("60", 10) && value <= parseInt("80", 10)) {
+        else if (value > parseInt("25", 10) && value <= parseInt("34", 10)) {
             return (<p>PostDoc</p>)
         }
         else {
-            return (<p>Expert</p>)
+            return (<p>Domain Experts</p>)
         }
     }
     setting4 = (value) => {
-        if (value >= parseInt("0", 10) && value <= parseInt("20", 10)) {
+        if (value >= parseInt("10", 10) && value <= parseInt("15", 10)) {
             return (<p>Kindergarten</p>)
         }
-        else if (value > parseInt("20", 10) && value <= parseInt("40", 10)) {
+        else if (value > parseInt("16", 10) && value <= parseInt("20", 10)) {
             return (<p>Elementary School</p>)
         }
-        else if (value > parseInt("40", 10) && value <= parseInt("60", 10)) {
+        else if (value > parseInt("21", 10) && value <= parseInt("24", 10)) {
             return (<p>Middle School</p>)
         }
-        else if (value > parseInt("60", 10) && value <= parseInt("80", 10)) {
+        else if (value > parseInt("25", 10) && value <= parseInt("30", 10)) {
             return (<p>High School</p>)
         }
         else {
@@ -154,6 +163,55 @@ class Contribute extends Component {
         }
     }
 
+    submitHandler = e => {
+        e.preventDefault()
+        console.log(this.state)
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+
+        var bodyFormData = new FormData();
+        bodyFormData.append('domain', Math.floor((this.state.value1 - 10) * 2));
+        bodyFormData.append('LearnerAge', Math.floor(this.state.value2 / 1));
+        bodyFormData.append('LearnerLevel', Math.floor(this.state.value3 / 10));
+        bodyFormData.append('ContributorLevel', Math.floor(this.state.value4 / 10));
+
+
+        axios({
+            method: 'post',
+            url: 'http://143.248.247.64:52005/predictObject',
+            headers: {'Content-Type': 'multipart/form-data', 'crossDomain': true},
+            httpsAgent: agent,
+            data: bodyFormData
+          }).then(response =>  {
+            console.log(response.data)
+            const maxValue = Math.max(...response.data)
+            const maxIndex = response.data.indexOf(maxValue)
+            this.setState({value: maxIndex})
+            this.setState(prevState => ({
+                word1: {                   
+                    ...prevState.word1,    
+                    modelConfidence: Math.floor(response.data[0] * 100) / 1
+                },
+                word2: {                   
+                    ...prevState.word2,    
+                    modelConfidence: Math.floor(response.data[1] * 100) / 1
+                },
+                word3: {                   
+                    ...prevState.word3,    
+                    modelConfidence: Math.floor(response.data[2] * 100) / 1 
+                },
+                word4: {                   
+                    ...prevState.word4,    
+                    modelConfidence: Math.floor(response.data[3] * 100) / 1  
+                },
+            }))
+          })
+        .catch(error => {
+            console.log(error)
+          });
+  
+    }
 
     handleOnChange1 = (e) => this.setState({ value1: e.target.value })
     handleOnChange2 = (e) => this.setState({ value2: e.target.value })
@@ -176,10 +234,10 @@ class Contribute extends Component {
                 <Card.Group>
 
                     <Card size="mini"
-                        image='/honeybee.png'
-                        header='Bee Happy'
-                        meta='A mathemathics teacher'
-                        description='I am a mathematics teacher at Teemo Science High School. I have taught math for 19 years to 5,492 gifted students so far.'
+                        image='/meister.png'
+                        header='"The Translation Master" Kim'
+                        meta='A meister in translation'
+                        description="네, 오늘 이 시간에는 16년 동안 전산학 관련 자료라면 무엇이든 한국어로 번역해오신 번역의 달인 '다비리' 김병만 선생님 모셨습니다."
                         extra={"567 reputation points (Ranked 0.229%)"}
                     />
 
@@ -191,28 +249,28 @@ class Contribute extends Component {
                 </p>
 
                 <Header as='h2' dividing>
-                    Contributing to improve mathematics 101
+                    Contributing to improve computer science 101
       </Header>
 
                 <p>
-                    Thank you for the contributing in mathematics 101 translation. We have a few things to get a help from you.
+                    Thank you for the contributing in computer science 101 translation. We have a few things to get a help from you.
       </p>
 
                 <div>
                     <Menu pointing secondary>
                         <Menu.Item
-                            name='Differential Equations'
+                            name='Human-AI interaction'
                             active={activeItem === '1'}
                             onClick={this.handleItemClick}
                         />
                         <Menu.Item
-                            name='Linear Algebra'
+                            name='Social Computing'
                             disabled
                             active={activeItem === '2'}
                             onClick={this.handleItemClick}
                         />
                         <Menu.Item
-                            name='Graph Theory'
+                            name='Starcraft 101'
                             disabled
                             active={activeItem === '3'}
                             onClick={this.handleItemClick}
@@ -221,7 +279,7 @@ class Contribute extends Component {
 
                     <Segment>
 
-                        <Image src='/dq.png' style={{ marginBottom: '1em' }} />
+                        <Image src='/cs101.png' style={{ marginBottom: '1em' }} />
 
                         <Grid.Column>
                             <Segment raised>
@@ -229,7 +287,7 @@ class Contribute extends Component {
                                     English (Original)
         </Label>
                                 <p>
-                                    <Label color='red'>Differentiate</Label> the both <Label color='red'>sides</Label> of the equation and you'll get the answer. I'll leave detailed <Label color='teal'>calculation</Label> as your homework.
+                                The hyperparameter is then fed into the <Label color='red'>object</Label> to produce the predicted value Y.
                     </p>
 
                                 <Label as='a' color='blue' ribbon style={{ marginBottom: "1em" }}>
@@ -364,34 +422,36 @@ class Contribute extends Component {
 
                     <div style={{ display: this.stateshowSetting() ? "block" : "None", marginTop: "1em" }}>
 
-                        <Segment color="violet" textAlign="center">
-                            <h3>Try adjusting the parameter to change the setting</h3>
+                    <Segment color="violet" textAlign="center">
+                        <h3>Try adjusting the parameter to change the setting</h3>
+                        <div>
                             <div>
-                                <div>
-                                    <p><b> Domain of the Excerpt </b></p>
-                                    <input type="range" min="0" max="100" value={this.state.value1} onChange={this.handleOnChange1} />
-                                    <div className="value">{this.setting1(this.state.value1)}</div>
-                                </div>
-                                <div style={{ marginTop: "30px" }}>
-                                    <p><b> Peer Suggestion </b></p>
-                                    <input type="range" min="0" max="100" value={this.state.value2} onChange={this.handleOnChange2} />
-                                    <div className="value">{this.setting2(this.state.value2)}</div>
-                                </div>
-                                <div style={{ marginTop: "30px" }}>
-                                    <p><b> Experts' Suggestion </b></p>
-                                    <input type="range" min="0" max="100" value={this.state.value3} onChange={this.handleOnChange3} />
-                                    <div className="value">{this.setting3(this.state.value3)}</div>
-                                </div>
-                                <div style={{ marginTop: "30px" }}>
-                                    <p><b> Your Educational Background </b></p>
-                                    <p><i> Disclaimer: This is to provide personal suggestion tailored to your educational background, and moving this slider does not collect your personal information</i></p>
-                                    <input type="range" min="0" max="100" value={this.state.value4} onChange={this.handleOnChange4} />
-                                    <div className="value">{this.setting4(this.state.value4)}</div>
-                                </div>
+                                <p><b> Domain of the Excerpt </b></p>
+                                <input type="range" min="10" max="39" value={this.state.value1} onChange={this.handleOnChange1} />
+                                <div className="value">{this.setting1(this.state.value1)}</div>
                             </div>
+                            <div style={{ marginTop: "30px" }}>
+                                <p><b> Peer Suggestion </b></p>
+                                <input type="range" min="0" max="50" value={this.state.value2} onChange={this.handleOnChange2} />
+                                <div className="value">{this.setting2(this.state.value2)}</div>
+                            </div>
+                            <div style={{ marginTop: "30px" }}>
+                                <p><b> Experts' Suggestion </b></p>
+                                <input type="range" min="0" max="39" value={this.state.value3} onChange={this.handleOnChange3} />
+                                <div className="value">{this.setting3(this.state.value3)}</div>
+                            </div>
+                            <div style={{ marginTop: "30px" }}>
+                                <p><b> Your Educational Background </b></p>
+                                <p><i> Disclaimer: This is to provide personal suggestion tailored to your educational background, and moving this slider does not collect your personal information</i></p>
+                                <input type="range" min="10" max="39" value={this.state.value4} onChange={this.handleOnChange4} />
+                                <div className="value">{this.setting4(this.state.value4)}</div>
+                            </div>
+                            <Button style={{ backgroundColor: "#8f1eb4", color: "#fff", marginTop: "0.3em" }} onClick={this.submitHandler}> Check Translation Result </Button>
+                            <ModalExampleModal text="Submit This!" isContribute="2" color="black" />
+                        </div>
 
 
-                        </Segment>
+                    </Segment>
 
 
                     </div>

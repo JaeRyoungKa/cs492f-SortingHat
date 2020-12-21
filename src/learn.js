@@ -156,8 +156,7 @@ class Learn extends Component {
         .catch(error => {
             console.log(error)
           });
-
-      
+  
     }
 
 
